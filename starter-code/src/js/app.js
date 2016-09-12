@@ -66,3 +66,21 @@ $(document).ready(function(){
 });
 
 //45
+// login authentication
+
+const api_key = "http://localhost:3000/api";
+
+$.ajax({
+  url: `${api_key}/register`,
+  method: "post",
+  data: {
+    user: {
+      username: "alexpchin",
+      email: "alex@alex1111.com",
+      password: "password",
+      passwordConfirmation: "password"
+    }
+  }
+}).done(data => {
+  console.log(data);
+});
