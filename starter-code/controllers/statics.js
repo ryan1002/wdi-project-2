@@ -1,5 +1,5 @@
 module.exports = {
-  home: staticshome
+  home: staticsHome
 };
 
 const path = require("path");
