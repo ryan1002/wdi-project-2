@@ -13,8 +13,26 @@ Get a list of cinemas within a radius of a set of geo coordinates-------*/
 Get the film times for a cinema. The day query parameter is an offset to get times for a day other than today-------*/
 
 var map;
+var service;
 
-function performSearch() {}
+function handleSearchResults(results, status) {
+  console.log(results);
+
+  for (var i = 0; i < results.length; i++) {
+    var marker = new google.maps.Marker({
+      position: results[i].geometry.location,
+      map: map
+    });
+  }
+}
+
+function performSearch() {
+  var request = {
+    bounds: map.getBounds(),
+    name: "cinemas"
+  };
+  service.nearbySearch(request, handleSearchResults);
+}
 
 function initialise(location) {
   console.log(location);
@@ -32,8 +50,15 @@ function initialise(location) {
     position: currentLocation,
     map: map
   });
+
+  service = new google.maps.places.PlacesService(map);
+
+  //ensure that waits until the map bounds are initialised
+  google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
 }
 
 $(document).ready(function () {
   navigator.geolocation.getCurrentPosition(initialise);
 });
+
+//45
