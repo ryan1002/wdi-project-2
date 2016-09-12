@@ -1,30 +1,44 @@
-// You will need to get your GoogleMaps API key
-// Make a request to the API to get all of the restaurants
-// Display then on the page with GMaps
-// BONUS: Mark your current location on the map
-// BONUS BONUS: Add restul routes
+
+/* -- api.cinelist.co.uk/search/cinemas/postcode/:postcode
+ Get a list of cinemas within a certain distance of a UK postcode -------*/
+
+ /*-- api.cinelist.co.uk/search/cinemas/location/:location
+ Get a list of cinemas by searching for a UK city, town or placename------*/
+
+ /*--api.cinelist.co.uk/search/cinemas/coordinates/:latitude/:longitude
+ Get a list of cinemas within a radius of a set of geo coordinates-------*/
+
+ /*--api.cinelist.co.uk/get/times/cinema/:venueID?day=<INT>
+Get the film times for a cinema. The day query parameter is an offset to get times for a day other than today-------*/
 
 
-const googleMap = googleMap || {};
+var map;
 
-googleMap.mapSetup = function(){
-  let canvas = document.getElementById('map-canvas');
+function performSearch(){
 
-  let mapOptions = {
-    zoom: 12,
-    center: new google.maps.LatLng(51.506178,-0.088369),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  this.map = new google.maps.Map(canvas, mapOptions);
-
-};
-//initialise location
-function initialise(location) {
-  console.log(location);
 }
 
+function initialise(location) {
+  console.log(location);
 
-// grab current location
-navigator.geolocation.getCurrentPosition(initialise);
+  var currentLocation = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
+  var mapOptions = {
+    center: currentLocation,
+    zoom: 12,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
 
-$(googleMap.mapSetup.bind(googleMap));
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var marker = new google.maps.Marker({
+    position: currentLocation,
+    map: map
+  });
+
+
+
+}
+
+$(document).ready(function(){
+    navigator.geolocation.getCurrentPosition(initialise);
+});
