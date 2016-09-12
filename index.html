@@ -3,23 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Cinemas</title>
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoAcAiU79KVa27JwZ1UdRDyNomqlfhHdg&libraries=places" charset="utf-8"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoAcAiU79KVa27JwZ1UdRDyNomqlfhHdg" charset="utf-8"></script>
     <script src="/js/app.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     <header>
       <nav>
-        <h1 class="index">Restaurants</h1>
-        <a class="index" href="#">Seach all Cinemas</a>
-        <a class="new" href="#">Search by postcode</a>
+        <!-- <a class="index" href="#">Seach all Cinemas</a>
+        <a class="new" href="#">Search by postcode</a> -->
+        <a href="#" class="map">Show Map</a>
+        <a href="#" class="login">Login</a>
+        <a href="#" class="register">Register</a>
       </nav>
     </header>
 
-    <form method="get" id="choosePostcode">
+    <!-- <form method="get" id="choosePostcode">
   			<button type="submit" class="learnButton">Use current location</button>
   			<button type="button" id="searchZip" class="learnButton">Search by Zip Code</button>
   			<div class="clear"></div>
@@ -28,8 +27,9 @@
   				<button type="submit" class="learnButton">Search</button>
   			</div>
   			<div class="clear"></div>
-  		</form>
-
+  		</form> -->
+    <h1>Website</h1>
+    <div class="auth"></div>
     <main>
       <div id="map-canvas"></div>
     </main>
