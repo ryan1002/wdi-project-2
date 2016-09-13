@@ -92,7 +92,10 @@ function showMap() {
   var mapOptions = {
     center: { lat: currentLocation.lat, lng: currentLocation.lng },
     zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles:
+      [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#d8d8d8"},{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#00819e"}]}]
+
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -117,6 +120,9 @@ function showLoginForm() {
 
   function showRegisterForm() {
     event.preventDefault();
+    console.log("I was register form");
+
+
     $('.auth').empty().append(`
       <h2>Register</h2>
       <form method="post" action="/register">
@@ -140,7 +146,8 @@ function showLoginForm() {
 
     function showLogout() {
       event.preventDefault();
-      $('.auth').empty().append(`
-        <h2>Logout</h2>
-        `);
-      }
+      $window.localStorage.clear();
+      // $('.auth').empty().append(`
+      //   <h2>Logout</h2>
+      //   `);
+    }

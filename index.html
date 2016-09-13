@@ -32,7 +32,80 @@
     <h1>Website</h1>
     <div class="auth"></div>
     <main>
-      <div id="map-canvas"></div>
+
+
+      <div class="modal fade">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+              <form method="post" action="/login">
+              <div class="form-group">
+              <input class="form-control" type="email" name="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+              <input class="form-control" type="password" name="password" placeholder="Password">
+              </div>
+              <input class="btn btn-primary" type="submit" value="Login">
+              </form>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+      <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+
+        <form method="post" action="/register">
+        <div class="form-group">
+        <input class="form-control" type="text" name="user[username]" placeholder="Username">
+        </div>
+        <div class="form-group">
+        <input class="form-control" type="email" name="user[email]" placeholder="Email">
+        </div>
+        <div class="form-group">
+        <input class="form-control" type="password" name="user[password]" placeholder="Password">
+        </div>
+        <div class="form-group">
+        <input class="form-control" type="password" name="user[passwordConfirmation]"
+        older="Password Confirmation">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Register">
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
     </main>
+
+          <div id="map-canvas"></div>
   </body>
 </html>

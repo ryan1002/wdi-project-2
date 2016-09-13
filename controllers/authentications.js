@@ -4,7 +4,7 @@ module.exports = {
 };
 
 const User   = require("../models/user");
-// const jwt    = require("jsonwebtoken");
+const jwt    = require("jsonwebtoken");
 const config = require("../config/config");
 
 function authenticationsRegister(req, res){
