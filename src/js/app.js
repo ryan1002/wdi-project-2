@@ -85,6 +85,7 @@ function init() {
 function clickEvents() {
   $('.login').on('click', showLoginForm);
   $('.register').on('click', showRegisterForm);
+  $('.logout').on('click', showLogout);
 }
 
 function showMap() {
@@ -136,3 +137,10 @@ function showLoginForm() {
       </form>
       `);
     }
+
+    function showLogout() {
+      event.preventDefault();
+      $('.auth').empty().append(`
+        <h2>Logout</h2>
+        `);
+      }
