@@ -14,12 +14,12 @@ const radius        = 2500;
 const type          = "movie_theatre";
 const keyword       = encodeURIComponent("cinema");
 const API_KEY       = "AIzaSyAoAcAiU79KVa27JwZ1UdRDyNomqlfhHdg";
-const uri           = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${keyword}&location=${lat},${lng}&radius=${radius}&type=${type}&key=${API_KEY}`;
+const originalUri   = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${keyword}&location=${lat},${lng}&radius=${radius}&type=${type}&key=${API_KEY}`;
 let next_page_token = "";
 let page            = 0;
 
 // Clear database of cinemas
-Cinema.collection.drop();
+// Cinema.collection.drop();
 
 function getCinemas(uri){
   let options = {
@@ -28,7 +28,7 @@ function getCinemas(uri){
 
   return rp(options)
   .then(data => {
-    let json        = JSON.parse(data);
+    let json = JSON.parse(data);
 
     // Get the next_page_token to make paginated requests
     next_page_token = json.next_page_token;
@@ -73,11 +73,11 @@ function getCinemas(uri){
       console.log("DONE");
       process.exit();
     }
-    console.log("New url:", `${uri}&pagetoken=${next_page_token}`);
-    return getCinemas(`${uri}&pagetoken=${next_page_token}`);
+    console.log("New url:", `${originalUri}&pagetoken=${next_page_token}`);
+    return getCinemas(`${originalUri}&pagetoken=${next_page_token}`);
   })
   .catch(console.error);
 }
 
-console.log("INITIAL: ", uri);
-getCinemas(uri);
+console.log("INITIAL: ", originalUri);
+getCinemas(originalUri);

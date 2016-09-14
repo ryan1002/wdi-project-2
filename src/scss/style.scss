@@ -1,64 +1,51 @@
 @import "bower";
 
-body html {
-  margin: 0 auto;
-  padding: 0;
-}
+// *************************************************************** //
 
-body {
-  background: grey;
+$white: white;
+$black: black;
+
+// *************************************************************** //
+
+header {
+  text-align: center;
+
+  h1 {
+    padding: 1rem 0;
+  }
+
+  .bg-faded {
+    background: $white;
+    -webkit-box-shadow: 0 10px 20px -6px $black;
+    -moz-box-shadow: 0 10px 20px -6px $black;
+    box-shadow: 0 10px 20px -6px $black;
+  }
+
+  a {
+    color: $black;
+
+    &:focus, &:hover {
+      color: $black;
+    }
+  }
+
+  nav {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .navbar-nav {
+    display: inline-block;
+    text-align: center;
+    .nav-item {
+      display: inline-block;
+    }
+  }
 }
 
 #map-canvas {
   width: 100%;
   height: 100vh;
   margin: 0 auto;
-}
-
-.auth {
-  position: absolute;
-  background: #fff;
-  width: 30%;
-  margin: 100px 0 0 35%;
-  padding: 20px;
-  z-index: 1500;
-  // display: none;
-}
-
-nav > ul > li > a: link {
-  color: white;
-}
-
-nav > ul > li > a: hover {
-  color: blue;
-}
-
-
-
-
-
-// .close {
-//   width: 30px;
-//   height: 30px;
-//   border-radius: 50%;
-//   border: 1px solid #999;
-//   text-align: center;
-//   line-height: 30px;
-//   font-size: 30px;
-//   float: right;
-// }
-
-.modal-body {
- box-shadow: 10px 10px 5px grey;
-}
-
-// form {
-//    box-shadow: 10px 10px 5px grey;
-// }
-
-//uncomment underneath to reveal shadow
-.auth {
-   box-shadow: 10px 10px 5px grey;
-   border: 2px solid #A81C07;
-
+  z-index: -1;
 }

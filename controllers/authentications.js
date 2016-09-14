@@ -11,9 +11,12 @@ function authenticationsRegister(req, res){
   User.create(req.body.user, (err, user) => {
     if (err) return res.status(500).json({ message: "Something went wrong." });
 
+    let token = jwt.sign(user._id, config.secret, { expiresIn: 60*60*24 });
+
     return res.status(201).json({
       message: `Welcome ${user.username}!`,
-      user
+      user,
+      token
     });
   });
 }
@@ -29,7 +32,8 @@ function authenticationsLogin(req, res){
 
     return res.status(200).json({
       message: "Welcome back.",
-      user
+      user,
+      token
     });
   });
 }

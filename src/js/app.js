@@ -68,13 +68,14 @@ Get the film times for a cinema. The day query parameter is an offset to get tim
 var map;
 var service;
 var currentLocation;
+var API_URL = "http://localhost:3000/api";
 
 $(init);
 
 function init() {
-  clickEvents();
+  eventListeners();
   navigator.geolocation.getCurrentPosition(function(position) {
-     currentLocation = {
+    currentLocation = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
@@ -82,10 +83,22 @@ function init() {
   });
 }
 
-function clickEvents() {
-  $('.login').on('click', showLoginForm);
-  $('.register').on('click', showRegisterForm);
+function eventListeners() {
   $('.logout').on('click', showLogout);
+  $(".modal").on("submit", "form", handleForm);
+}
+
+function handleForm(){
+  event.preventDefault();
+  console.log("FORM")
+  let url    = `${API_URL}${$(this).attr("action")}`;
+  let method = $(this).attr("method");
+  let data   = $(this).serialize();
+
+  return ajaxRequest(url, method, data, (data) => {
+    if (data.token) setToken(data.token);
+    console.log(data);
+  });
 }
 
 function showMap() {
@@ -94,78 +107,35 @@ function showMap() {
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     styles:
-      [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#d8d8d8"},{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#00819e"}]}]
+    [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}]
 
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
 
-function showLoginForm() {
+
+function showLogout() {
   event.preventDefault();
-  console.log("running");
-  $('.auth').empty().append(`
-    <h2>Login</h2>
-    <form method="post" action="/login">
-    <div class="form-group">
-    <input class="form-control" type="email" name="email" placeholder="Email">
-    </div>
-    <div class="form-group">
-    <input class="form-control" type="password" name="password" placeholder="Password">
-    </div>
-    <input class="btn btn-primary" type="submit" value="Login">
-    </form>
-    `);
-  }
-
-  function showRegisterForm() {
-    event.preventDefault();
-    console.log("I was register form");
+  $window.localStorage.clear();
+}
 
 
-    $('.auth').empty().append(`
-      <h2>Register</h2>
-      <form method="post" action="/register">
-      <div class="form-group">
-      <input class="form-control" type="text" name="user[username]" placeholder="Username">
-      </div>
-      <div class="form-group">
-      <input class="form-control" type="email" name="user[email]" placeholder="Email">
-      </div>
-      <div class="form-group">
-      <input class="form-control" type="password" name="user[password]" placeholder="Password">
-      </div>
-      <div class="form-group">
-      <input class="form-control" type="password" name="user[passwordConfirmation]"
-      older="Password Confirmation">
-      </div>
-      <input class="btn btn-primary" type="submit" value="Register">
-      </form>
-      `);
-    }
+function ajaxRequest(url, method, data, callback){
+  return $.ajax({
+    url,
+    method,
+    data,
+    beforeSend: setRequestHeader
+  })
+  .done(callback)
+  .fail(data => {
+    console.log(data);
+  });
+}
 
-    function showLogout() {
-      event.preventDefault();
-      $window.localStorage.clear();
-      // $('.auth').empty().append(`
-      //   <h2>Logout</h2>
-      //   `);
-    }
-
-//     App.setRequestHeader = function(xhr, settings) {
-//   return xhr.setRequestHeader("Authorization", `Bearer ${this.getToken()}`);
-// };
-//
-// App.setToken = function(token){
-//   return window.localStorage.setItem("token", token);
-// };
-//
-// App.getToken = function(){
-//   return window.localStorage.getItem("token");
-// };
-
-function setRequestHeader(xhr, settings){
-  return xhr.setRequestHeader("Authorization", `Bearer ${this.getToken()}`);
+function setRequestHeader(xhr, settings) {
+  return xhr.setRequestHeader("Authorization", `Bearer ${getToken()}`);
 }
 
 function setToken(token) {
