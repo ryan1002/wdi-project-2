@@ -12,92 +12,88 @@
     <h1>CineList</h1>
     <nav class="navbar navbar-light bg-faded">
       <ul class="nav navbar-nav">
-        <li></li>
-        <li class="nav-item active">
-          <a href="#" class="map">Show Map</a>
-          <li class="nav-item active">
-            <li class="nav-item">
-              <a href="#" class="login loggedOut" data-toggle="modal" data-target="#loginModal">Login</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="register loggedOut" data-toggle="modal" data-target="#registerModal">Register</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="logout loggedIn">Logout</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
+        <li class="nav-item loggedOut">
+          <a href="#" class="login" data-toggle="modal" data-target="#loginModal">Login</a>
+        </li>
+        <li class="nav-item loggedOut">
+          <a href="#" class="register" data-toggle="modal" data-target="#registerModal">Register</a>
+        </li>
+        <li class="nav-item loggedIn">
+          <a href="#" class="logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
 
-        <!-- Login Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h2 class="modal-title" id="myModalLabel">Login</h2>
-              </div>
-              <form method="post" action="/login">
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-primary">Login</button>
-                </div>
-              </form>
-            </div>
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h2 class="modal-title" id="myModalLabel">Login</h2>
           </div>
-        </div>
-
-        <!-- Register Modal -->
-        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h2 class="modal-title" id="myModalLabel">Register</h2>
+          <form method="post" action="/login">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
               </div>
-              <form method="post" action="/register">
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label for="user_username">Username</label>
-                    <input type="text" name="user[username]" class="form-control" id="user_username" placeholder="Enter username">
-                  </div>
-                  <div class="form-group">
-                    <label for="user_email">Email</label>
-                    <input type="email" name="user[email]" class="form-control" id="user_email" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="user_password">Password</label>
-                    <input type="password" name="user[password]" class="form-control" id="user_password" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="user_passwordConfirmation">Password Confirmation</label>
-                    <input type="password" name="user[passwordConfirmation]" class="form-control" id="user_passwordConfirmation" placeholder="Password Confirmation">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-primary">Login</button>
-                </div>
-              </form>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+              </div>
             </div>
-          </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary">Login</button>
+            </div>
+          </form>
         </div>
+      </div>
+    </div>
 
-      </main>
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h2 class="modal-title" id="myModalLabel">Register</h2>
+          </div>
+          <form method="post" action="/register">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="user_username">Username</label>
+                <input type="text" name="user[username]" class="form-control" id="user_username" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="user_email">Email</label>
+                <input type="email" name="user[email]" class="form-control" id="user_email" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="user_password">Password</label>
+                <input type="password" name="user[password]" class="form-control" id="user_password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label for="user_passwordConfirmation">Password Confirmation</label>
+                <input type="password" name="user[passwordConfirmation]" class="form-control" id="user_passwordConfirmation" placeholder="Password Confirmation">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-      <div id="map-canvas"></div>
-    </body>
-    </html>
+  </main>
+
+  <div id="map-canvas"></div>
+</body>
+</html>

@@ -11,60 +11,6 @@ Get a list of cinemas within a radius of a set of geo coordinates-------*/
 /*--api.cinelist.co.uk/get/times/cinema/:venueID?day=<INT>
 Get the film times for a cinema. The day query parameter is an offset to get times for a day other than today-------*/
 
-//
-// var map;
-// var service;
-//
-// function handleSearchResults(results, status){
-//   console.log(results);
-//
-//   for(var i = 0; i < results.length; i++){
-//     var marker = new google.maps.Marker({
-//       position: results[i].geometry.location,
-//       map: map,
-//       // icon: "cinema-vector.png"
-//     });
-//   }
-//
-// }
-//
-// function performSearch(){
-//   var request = {
-//     bounds: map.getBounds(),
-//     name: "cinemas"
-//   };
-//   service.nearbySearch(request, handleSearchResults);
-// }
-//
-// function initialise(location) {
-//   console.log(location);
-//
-//   var currentLocation = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
-//   var mapOptions = {
-//     center: currentLocation,
-//     zoom: 12,
-//     mapTypeId: google.maps.MapTypeId.ROADMAP
-//   };
-//
-//   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-//
-//   var marker = new google.maps.Marker({
-//     position: currentLocation,
-//     map: map
-//   });
-//
-// service = new google.maps.places.PlacesService(map);
-//
-// //ensure that waits until the map bounds are initialised
-// google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
-//
-//
-// }
-//
-// $(document).ready(function(){
-//     navigator.geolocation.getCurrentPosition(initialise);
-// });
-
 var map;
 var service;
 var currentLocation;
@@ -81,6 +27,22 @@ function init() {
     };
     showMap();
   });
+
+  if (getToken()) {
+    loggedIn();
+  } else {
+    loggedOut();
+  }
+}
+
+function loggedIn(){
+  $(".loggedOut").hide();
+  $(".loggedIn").show();
+}
+
+function loggedOut(){
+  $(".loggedOut").show();
+  $(".loggedIn").hide();
 }
 
 function eventListeners() {
@@ -90,15 +52,25 @@ function eventListeners() {
 
 function handleForm(){
   event.preventDefault();
-  console.log("FORM")
   let url    = `${API_URL}${$(this).attr("action")}`;
   let method = $(this).attr("method");
   let data   = $(this).serialize();
 
   return ajaxRequest(url, method, data, (data) => {
     if (data.token) setToken(data.token);
-    console.log(data);
+    $(this).parents(".modal").modal("hide");
+    loggedIn();
   });
+}
+
+function handleSearchResults(results){
+  for(var i = 0; i < results.cinemas.length; i++){
+    var latlng = new google.maps.LatLng(results.cinemas[i].lat, results.cinemas[i].lng);
+    var marker = new google.maps.Marker({
+      position: latlng,
+      map: map,
+    });
+  }
 }
 
 function showMap() {
@@ -112,12 +84,23 @@ function showMap() {
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  if (getToken()){
+    let url    = `${API_URL}/cinemas`;
+    let method = "get";
+    let data   = null;
+
+    return ajaxRequest(url, method, data, (data) => {
+      handleSearchResults(data);
+    });
+  }
 }
 
 
 function showLogout() {
   event.preventDefault();
-  $window.localStorage.clear();
+  window.localStorage.clear();
+  loggedOut();
 }
 
 
