@@ -15,6 +15,8 @@ var map;
 var service;
 var currentLocation;
 var API_URL = "http://localhost:3000/api";
+var markers = [];
+var infoWindow;
 
 $(init);
 
@@ -43,6 +45,7 @@ function loggedIn(){
 function loggedOut(){
   $(".loggedOut").show();
   $(".loggedIn").hide();
+  clearMarkers();
 }
 
 function eventListeners() {
@@ -60,6 +63,30 @@ function handleForm(){
     if (data.token) setToken(data.token);
     $(this).parents(".modal").modal("hide");
     loggedIn();
+    if (getToken()){
+      let url    = `${API_URL}/cinemas`;
+      let method = "get";
+      let data   = null;
+
+      return ajaxRequest(url, method, data, (data) => {
+        handleSearchResults(data);
+      });
+    }
+  });
+}
+
+function addInfoWindowForCinema(cinema, marker) {
+  google.maps.event.addListener(marker, 'click', () => {
+    if (typeof infoWindow != "undefined") infoWindow.close();
+    infoWindow = new google.maps.InfoWindow({
+      content: `<h4>${cinema.name}</h4>
+                <p>${cinema.formatted_address}</p>
+                <a href="http://${cinema.website}">${cinema.website}</a>
+                <p>${cinema.rating}</p>
+               `
+    });
+
+    infoWindow.open(map, marker);
   });
 }
 
@@ -70,6 +97,8 @@ function handleSearchResults(results){
       position: latlng,
       map: map,
     });
+    markers.push(marker);
+    addInfoWindowForCinema(results.cinemas[i], marker);
   }
 }
 
@@ -94,6 +123,7 @@ function showMap() {
       handleSearchResults(data);
     });
   }
+
 }
 
 
@@ -103,6 +133,11 @@ function showLogout() {
   loggedOut();
 }
 
+function clearMarkers() {
+  markers.forEach((marker, index) => {
+    marker.setMap(null);
+  });
+}
 
 function ajaxRequest(url, method, data, callback){
   return $.ajax({
