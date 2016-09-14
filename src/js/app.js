@@ -151,3 +151,27 @@ function showLoginForm() {
       //   <h2>Logout</h2>
       //   `);
     }
+
+//     App.setRequestHeader = function(xhr, settings) {
+//   return xhr.setRequestHeader("Authorization", `Bearer ${this.getToken()}`);
+// };
+//
+// App.setToken = function(token){
+//   return window.localStorage.setItem("token", token);
+// };
+//
+// App.getToken = function(){
+//   return window.localStorage.getItem("token");
+// };
+
+function setRequestHeader(xhr, settings){
+  return xhr.setRequestHeader("Authorization", `Bearer ${this.getToken()}`);
+}
+
+function setToken(token) {
+  return window.localStorage.setItem("token", token);
+}
+
+function getToken(token) {
+  return window.localStorage.getItem("token");
+}

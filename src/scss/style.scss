@@ -25,13 +25,40 @@ body {
   // display: none;
 }
 
-.close {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid #999;
-  text-align: center;
-  line-height: 30px;
-  font-size: 30px;
-  float: right;
+nav > ul > li > a: link {
+  color: white;
+}
+
+nav > ul > li > a: hover {
+  color: blue;
+}
+
+
+
+
+
+// .close {
+//   width: 30px;
+//   height: 30px;
+//   border-radius: 50%;
+//   border: 1px solid #999;
+//   text-align: center;
+//   line-height: 30px;
+//   font-size: 30px;
+//   float: right;
+// }
+
+.modal-body {
+ box-shadow: 10px 10px 5px grey;
+}
+
+// form {
+//    box-shadow: 10px 10px 5px grey;
+// }
+
+//uncomment underneath to reveal shadow
+.auth {
+   box-shadow: 10px 10px 5px grey;
+   border: 2px solid #A81C07;
+
 }
