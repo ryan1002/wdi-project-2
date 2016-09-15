@@ -96,6 +96,9 @@ function handleSearchResults(results){
     var marker = new google.maps.Marker({
       position: latlng,
       map: map,
+      icon: "../images/cinema-vector.png"
+
+// http://localhost:3000/..js/src/images.png -- not found
     });
     markers.push(marker);
     addInfoWindowForCinema(results.cinemas[i], marker);
