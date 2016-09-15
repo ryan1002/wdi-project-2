@@ -7,40 +7,68 @@ $black: black;
 
 // *************************************************************** //
 
+body {
+  font-family:'Roboto', sans-serif;
+}
+
 header {
   text-align: center;
 
-  h1 {
-    padding: 1rem 0;
-  }
-
-  .bg-faded {
-    background: $white;
-    -webkit-box-shadow: 0 10px 20px -6px $black;
-    -moz-box-shadow: 0 10px 20px -6px $black;
-    box-shadow: 0 10px 20px -6px $black;
-  }
-
-  a {
-    color: $black;
-
-    &:focus, &:hover {
-      color: $black;
-    }
-  }
 
   nav {
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .navbar-nav {
-    display: inline-block;
-    text-align: center;
-    .nav-item {
-      display: inline-block;
+    ul {
+      li {
+        position: relative;
+        padding: 10px;
+      }
     }
   }
+}
+h1 {
+  padding: 1rem 0;
+}
+
+.bg-faded {
+  background: $white;
+  -webkit-box-shadow: 0 10px 20px -6px $black;
+  -moz-box-shadow: 0 10px 20px -6px $black;
+  box-shadow: 0 10px 20px -6px $black;
+}
+
+a {
+  color: $black;
+
+  &:focus, &:hover {
+    color: $black;
+  }
+
+  &::after {
+    content: "";
+    height: 1.5em;
+    width: 1px;
+    position: absolute;
+    display: block;
+    top: 10px;
+    right: -8px;
+    background: rgb(229, 229, 229);
+  }
+}
+
+nav {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.navbar-nav {
+  display: inline-block;
+  text-align: center;
+  .nav-item {
+    display: inline-block;
+  }
+}
+
+.cinelist {
+  text-align: center;
 }
 
 #map-canvas {
@@ -48,4 +76,68 @@ header {
   height: 100vh;
   margin: 0 auto;
   // z-index: -1;
+}
+
+.btn-primary {
+  background-color: #282d31;
+  border-color: #282d31;
+
+  &:hover {
+    background-color: #666;
+    border-color: #888;
+  }
+
+}
+
+.btn.btn-primary {
+  color: #fff;
+}
+
+
+
+.form-control {
+  color: #282d31;
+}
+
+.form-group {
+  color: #303233;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #282d31 inset;
+}
+
+// .input:-webkit-autofill {
+//   background-color: red;
+// }
+
+
+#loginModal {
+  color: #373937;
+}
+
+#email.form-control {
+  background-color: #282d31;
+  color: white
+}
+#password.form-control {
+  background-color: #282d31;
+  color: white;
+}
+
+#user_username.form-control {
+  background-color: #282d31;
+  color: white;
+}
+#user_email.form-control {
+  background-color: #282d31;
+  color: white;
+}
+#user_password.form-control {
+  background-color: #282d31;
+  color: white;
+}
+#user_passwordConfirmation {
+  background-color: #282d31;
+  color: white;
 }

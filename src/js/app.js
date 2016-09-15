@@ -53,6 +53,10 @@ function eventListeners() {
   $(".modal").on("submit", "form", handleForm);
 }
 
+function showAbout() {
+
+}
+
 function handleForm(){
   event.preventDefault();
   let url    = `${API_URL}${$(this).attr("action")}`;
@@ -97,21 +101,36 @@ var icon = {
     anchor: new google.maps.Point(0, 0) // anchor
 };
 
+
+// function addMarkerWithTimeout(position, timeout) {
+//      window.setTimeout(function() {
+//        markers.push(new google.maps.Marker({
+//          position: position,
+//          map: map,
+//          animation: google.maps.Animation.DROP
+//        }));
+//      }, timeout);
+//    }
+
+
 function handleSearchResults(results){
+
   for(var i = 0; i < results.cinemas.length; i++){
     var latlng = new google.maps.LatLng(results.cinemas[i].lat, results.cinemas[i].lng);
     var marker = new google.maps.Marker({
       position: latlng,
       map: map,
-      icon: icon
+      animation: google.maps.Animation.DROP,
+      icon: "../images/cinema-vector.png"
 
-// http://localhost:3000/..js/src/images.png -- not found
-// "..images/cinema-vector.png"
     });
+    // push marker in an array object to delete
     markers.push(marker);
     addInfoWindowForCinema(results.cinemas[i], marker);
   }
 }
+
+
 
 function showMap() {
   var mapOptions = {
