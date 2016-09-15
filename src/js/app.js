@@ -90,15 +90,23 @@ function addInfoWindowForCinema(cinema, marker) {
   });
 }
 
+var icon = {
+    url: "images/cinema-vector.png", // url
+    scaledSize: new google.maps.Size(10, 20), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+};
+
 function handleSearchResults(results){
   for(var i = 0; i < results.cinemas.length; i++){
     var latlng = new google.maps.LatLng(results.cinemas[i].lat, results.cinemas[i].lng);
     var marker = new google.maps.Marker({
       position: latlng,
       map: map,
-      icon: "../images/cinema-vector.png"
+      icon: icon
 
 // http://localhost:3000/..js/src/images.png -- not found
+// "..images/cinema-vector.png"
     });
     markers.push(marker);
     addInfoWindowForCinema(results.cinemas[i], marker);
