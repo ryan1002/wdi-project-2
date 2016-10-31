@@ -1,16 +1,3 @@
-
-/* -- api.cinelist.co.uk/search/cinemas/postcode/:postcode
-Get a list of cinemas within a certain distance of a UK postcode -------*/
-
-/*-- api.cinelist.co.uk/search/cinemas/location/:location
-Get a list of cinemas by searching for a UK city, town or placename------*/
-
-/*--api.cinelist.co.uk/search/cinemas/coordinates/:latitude/:longitude
-Get a list of cinemas within a radius of a set of geo coordinates-------*/
-
-/*--api.cinelist.co.uk/get/times/cinema/:venueID?day=<INT>
-Get the film times for a cinema. The day query parameter is an offset to get times for a day other than today-------*/
-
 var map;
 var service;
 var currentLocation;
@@ -29,14 +16,12 @@ function init() {
     };
     showMap();
   });
-
   if (getToken()) {
     loggedIn();
   } else {
     loggedOut();
   }
 }
-
 function loggedIn(){
   $(".loggedOut").hide();
   $(".loggedIn").show();
@@ -50,11 +35,12 @@ function loggedOut(){
 
 function eventListeners() {
   $('.logout').on('click', showLogout);
+  $('.about').on('click', showAbout);
   $(".modal").on("submit", "form", handleForm);
 }
 
-function showAbout() {
-
+function showAbout(){
+  event.preventDefault();
 }
 
 function handleForm(){
@@ -78,7 +64,6 @@ function handleForm(){
     }
   });
 }
-
 function addInfoWindowForCinema(cinema, marker) {
   google.maps.event.addListener(marker, 'click', () => {
     if (typeof infoWindow != "undefined") infoWindow.close();
@@ -86,35 +71,18 @@ function addInfoWindowForCinema(cinema, marker) {
       content: `<h4>${cinema.name}</h4>
                 <p>${cinema.formatted_address}</p>
                 <a href="http://${cinema.website}">${cinema.website}</a>
-                <p>${cinema.rating}</p>
-               `
+                <p>${cinema.rating}</p>`
     });
-
     infoWindow.open(map, marker);
   });
 }
-
 var icon = {
-    url: "images/cinema-vector.png", // url
-    scaledSize: new google.maps.Size(10, 20), // scaled size
-    origin: new google.maps.Point(0,0), // origin
-    anchor: new google.maps.Point(0, 0) // anchor
+    url: "images/cinema-vector.png",
+    scaledSize: new google.maps.Size(10, 20),
+    origin: new google.maps.Point(0,0),
+    anchor: new google.maps.Point(0, 0)
 };
-
-
-// function addMarkerWithTimeout(position, timeout) {
-//      window.setTimeout(function() {
-//        markers.push(new google.maps.Marker({
-//          position: position,
-//          map: map,
-//          animation: google.maps.Animation.DROP
-//        }));
-//      }, timeout);
-//    }
-
-
 function handleSearchResults(results){
-
   for(var i = 0; i < results.cinemas.length; i++){
     var latlng = new google.maps.LatLng(results.cinemas[i].lat, results.cinemas[i].lng);
     var marker = new google.maps.Marker({
@@ -122,16 +90,11 @@ function handleSearchResults(results){
       map: map,
       animation: google.maps.Animation.DROP,
       icon: "../images/cinema-vector.png"
-
     });
-    // push marker in an array object to delete
     markers.push(marker);
     addInfoWindowForCinema(results.cinemas[i], marker);
   }
 }
-
-
-
 function showMap() {
   var mapOptions = {
     center: { lat: currentLocation.lat, lng: currentLocation.lng },
@@ -153,16 +116,12 @@ function showMap() {
       handleSearchResults(data);
     });
   }
-
 }
-
-
 function showLogout() {
   event.preventDefault();
   window.localStorage.clear();
   loggedOut();
 }
-
 function clearMarkers() {
   markers.forEach((marker, index) => {
     marker.setMap(null);
@@ -185,11 +144,9 @@ function ajaxRequest(url, method, data, callback){
 function setRequestHeader(xhr, settings) {
   return xhr.setRequestHeader("Authorization", `Bearer ${getToken()}`);
 }
-
 function setToken(token) {
   return window.localStorage.setItem("token", token);
 }
-
 function getToken(token) {
   return window.localStorage.getItem("token");
 }
